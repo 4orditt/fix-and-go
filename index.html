@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix & Go Bike</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --main-gradient: linear-gradient(135deg, #7c58a4 0%, #4a2b75 100%);
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.12);
+            --accent: #d7b7fc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--main-gradient);
+            background-attachment: fixed;
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Шапка та Статус */
+        header {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .logo {
+            font-size: clamp(24px, 6vw, 40px);
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .logo span { font-size: 0.8em; opacity: 0.9; display: block; }
+
+        .work-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #4ef054;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #4ef054;
+            animation: breathe 2.5s infinite ease-in-out;
+        }
+
+        /* Головний контент */
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .service-card {
+            background: var(--glass);
+            padding: 25px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 22px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .service-card i {
+            color: var(--white);
+            font-size: 28px;
+            /* Легка анімація замість різкого блимання */
+            animation: soft-glow 4s infinite ease-in-out;
+        }
+
+        /* Прайс-лист */
+        .price-section {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 30px;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .price-item span:last-child { font-weight: bold; color: var(--accent); }
+
+        /* Контакти */
+        .cta-card {
+            background: #ffffff;
+            color: #3f3f3f;
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            height: fit-content;
+        }
+
+        .btn-tg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #1a92e2;
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Анімації */
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        @keyframes soft-glow {
+            0%, 100% { opacity: 1; filter: drop-shadow(0 0 0px #fff); }
+            50% { opacity: 0.8; filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 15px; }
+            .service-card { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo">
+            Fix & Go<br><span>Bike <i class="fas fa-bicycle"></i></span>
+        </div>
+        <div class="work-status">
+            <div class="dot"></div>
+            Працюємо: 09:00 - 20:00
+        </div>
+    </header>
+
+    <div class="main-grid">
+        <div class="left-col">
+            <div class="service-card" style="margin-bottom: 20px;">
+                <i class="fas fa-battery-full"></i>
+                Оренда батарей та велосипедів
+            </div>
+            <div class="service-card" style="margin-bottom: 20px;">
+                <i class="fas fa-wrench"></i>
+                Ремонт та обслуговування
+            </div>
+            <div class="service-card">
+                <i class="fas fa-store"></i>
+                Продаж деталей 
+            </div>
+        </div>
+
+        <div class="cta-card">
+            <i class="fab fa-telegram" style="font-size: 60px; color: #1a92e2; margin-bottom: 10px;"></i>
+            <h2>Ми на зв'язку</h2>
+            <p>Назар відповість як тільки отрезвіє</p>
+            <a href="https://t.me/FixGoBike" class="btn-tg">Написати у Telegram</a>
+        </div>
+    </div>
+
+    <section class="price-section">
+        <h3 style="margin-bottom: 20px; border-left: 4px solid var(--accent); padding-left: 15px;">Популярні послуги</h3>
+        <div class="price-grid">
+            <div>
+                <div class="price-item"><span>Діагностика мотор-колеса</span> <span>500 грн</span></div>
+                <div class="price-item"><span>Діагностика АКБ</span> <span>200 грн</span></div>
+            </div>
+            <div>
+                <div class="price-item"><span>Повне ТО велосипеда</span> <span>від 700 грн</span></div>
+                <div class="price-item"><span>Ще якась хуйня</span> <span>від 200 грн</span></div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
