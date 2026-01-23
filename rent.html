@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix & Go Bike</title>
+    <link rel="icon" type="image/svg+xml" href="images/page_logo/bicycle-black.svg" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/svg+xml" href="images/page_logo/bicycle-white.svg" media="(prefers-color-scheme: dark)">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <a href="index.html" class="logo">Fix & Go<br><span>Bike <i class="fas fa-bicycle"></i></span></a>
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> <span>На головну</span></a>
+    </header>
+
+    <div class="title-block">
+        <h1>Оренда велосипеда</h1>
+        <div class="photo-hint">
+            <i class="fas fa-magnifying-glass-plus"></i>
+            <span>Натисніть на фото, щоб збільшити</span>
+        </div>
+    </div>
+
+    <div class="bike-grid">
+        <div class="bike-card">
+            <div class="bike-img" onclick="openModal(this)"><img src="images/photo_2025-12-28_16-13-20.jpg" alt="Formula"></div>
+            <div class="bike-content">
+                <h2 style="font-size: 26px;">Formula Zephyr</h2>
+                <p style="opacity: 0.6; font-size: 14px; margin-top: 5px;">Підходить як для відпочинку, так і для роботи.</p>
+                <ul class="specs-list">
+                    <li>Потужність: <span>500W</span></li>
+                    <li>Батарея: <span>48V 25Ah</span></li>
+                    <li>Запас ходу: <span>~80 км - 60 км/год</span></li>
+                </ul>
+                <a href="https://t.me/FixGoBike" class="price-btn">250 грн / день</a>
+            </div>
+        </div>
+
+        <div class="bike-card">
+            <div class="bike-img" onclick="openModal(this)"><img src="images/photo_2025-12-08_18-59-13.jpg" alt="Discovery"></div>
+            <div class="bike-content">
+                <h2 style="font-size: 26px;">Discovery</h2>
+                <p style="opacity: 0.6; font-size: 14px; margin-top: 5px;">Надійний напарник для повного робочого дня.</p>
+                <ul class="specs-list">
+                    <li>Потужність: <span>500W</span></li>
+                    <li>Батарея: <span>48V 25Ah</span></li>
+                    <li>Запас ходу: <span>~80 км - 60 км/год</span></li>
+                </ul>
+                <a href="https://t.me/FixGoBike" class="price-btn">250 грн / день</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-bar">
+        <div class="info-box"><h4>Графік</h4><p>Пн - Сб: 09:00 - 20:00<br>Неділя: Вихідний</p></div>
+        <div class="info-box"><h4>Локація</h4><p>Івано-Франківськ<br>вул. Михайла Мулика 27</p></div>
+        <div class="info-box"><h4>Контакти</h4><p>Telegram: @FixGoBike<br>Майстер - Стас</p></div>
+    </div>
+    <footer>&copy; 2026 FIX & GO BIKE. ВСІ ПРАВА ЗАХИЩЕНІ.</footer>
+</div>
+
+<div id="imageModal" class="modal">
+    <div class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></div>
+    <img class="modal-content" id="fullImage">
+</div>
+<script src="js/script.js"></script>
+</body>
+</html>

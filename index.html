@@ -4,258 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fix & Go Bike</title>
+    <link rel="icon" type="image/svg+xml" href="images/page_logo/bicycle-black.svg" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/svg+xml" href="images/page_logo/bicycle-white.svg" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --main-gradient: linear-gradient(135deg, #7c58a4 0%, #4a2b75 100%);
-            --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.1);
-            --glass-heavy: rgba(255, 255, 255, 0.2);
-            --accent: #d7b7fc;
-            --tg-blue: #24A1DE;
-            --status-green: #4ef054;
-            --status-red: #ff4e4e;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, sans-serif;
-        }
-
-        body {
-            background: var(--main-gradient);
-            background-attachment: fixed;
-            color: var(--white);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header */
-        header {
-            padding: 40px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .logo {
-            font-size: clamp(32px, 7vw, 44px);
-            font-weight: 900;
-            letter-spacing: -1px;
-            line-height: 0.9;
-        }
-
-        .logo span { 
-            font-size: 0.7em; 
-            font-weight: 400;
-            opacity: 0.8; 
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .work-status {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
-            border-radius: 50px;
-            border: 1px solid rgba(255,255,255,0.1);
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            background: var(--status-green);
-            border-radius: 50%;
-            box-shadow: 0 0 15px var(--status-green);
-            animation: pulse-green 2s infinite;
-        }
-
-        /* Стилі для закритого стану */
-        .work-status.closed .dot {
-            background: var(--status-red);
-            box-shadow: 0 0 15px var(--status-red);
-            animation: pulse-red 2s infinite;
-        }
-
-        .work-status.closed span {
-            color: white;
-        }
-
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(78, 240, 84, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(78, 240, 84, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(78, 240, 84, 0); }
-        }
-
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(255, 78, 78, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 78, 78, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 78, 78, 0); }
-        }
-
-        /* Сітка */
-        .sync-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-            align-items: stretch;
-        }
-
-        .left-col {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            justify-content: space-between;
-        }
-
-        .service-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            padding: 25px;
-            border-radius: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-size: clamp(16px, 3vw, 20px);
-            font-weight: 700;
-            flex-grow: 1;
-        }
-
-        .service-card i {
-            font-size: 26px;
-            color: var(--accent);
-            width: 35px;
-            text-align: center;
-        }
-
-        .cta-card {
-            background: var(--white);
-            color: #000000;
-            padding: 35px;
-            border-radius: 35px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            min-height: 100%;
-        }
-
-        .qr-area {
-            background: #f4f4f4;
-            padding: 15px;
-            border-radius: 25px;
-            margin-bottom: 20px;
-            width: 100%;
-            max-width: 170px;
-            aspect-ratio: 1/1;
-            border: 2px solid #eee;
-        }
-
-        .qr-area img { width: 100%; height: 100%; object-fit: contain; }
-
-        .btn-tg {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: var(--tg-blue);
-            color: white;
-            padding: 18px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 18px;
-            transition: 0.3s;
-        }
-
-        .price-section {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 35px;
-            border-radius: 40px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .price-title {
-            margin-bottom: 25px;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .price-title::before {
-            content: '';
-            width: 4px;
-            height: 24px;
-            background: var(--accent);
-            border-radius: 10px;
-        }
-
-        .price-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .price-item:last-child { border-bottom: none; }
-        .price-item span:last-child { color: var(--accent); font-weight: 800; }
-
-        .bottom-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            padding: 30px;
-            background: var(--glass);
-            border-radius: 35px;
-            border: 1px solid rgba(255,255,255,0.05);
-            text-align: center;
-        }
-
-        .info-box h4 {
-            color: var(--accent);
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 1.5px;
-            margin-bottom: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .sync-grid { grid-template-columns: 1fr; }
-            .cta-card { order: -1; min-height: auto; padding: 30px 20px; }
-            header { justify-content: center; text-align: center; }
-        }
-    </style>
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-
 <div class="container">
     <header>
-        <div class="logo">
-            Fix & Go<br><span>Bike <i class="fas fa-bicycle"></i></span>
-        </div>
+        <a href="index.html" class="logo">Fix & Go<br><span>Bike <i class="fas fa-bicycle"></i></span></a>
         <div class="work-status" id="status-container">
             <div class="dot"></div>
             <span id="status-text">Перевірка статусу...</span>
@@ -264,35 +21,16 @@
 
     <div class="sync-grid">
         <div class="left-col">
-            <div class="service-card">
-                <i class="fas fa-battery-three-quarters"></i>
-                Оренда АКБ та Електровелосипедів
-            </div>
-            <div class="service-card">
-                <i class="fas fa-tools"></i>
-                Професійний ремонт та ТО
-            </div>
-            <div class="service-card">
-                <i class="fas fa-microchip"></i>
-                Діагностика електрики
-            </div>
-            <div class="service-card">
-                <i class="fas fa-shopping-basket"></i>
-                Запчастини у наявності
-            </div>
+            <div class="service-card"><i class="fas fa-battery-three-quarters"></i> Оренда АКБ та Електровелосипедів</div>
+            <div class="service-card"><i class="fas fa-tools"></i> Професійний ремонт та ТО</div>
+            <div class="service-card"><i class="fas fa-microchip"></i> Діагностика електрики</div>
+            <div class="service-card"><i class="fas fa-shopping-basket"></i> Запчастини у наявності</div>
         </div>
-
         <div class="cta-card">
-            <div class="qr-area">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://t.me/FixGoBike" alt="Telegram QR">
-            </div>
+            <div class="qr-area"><img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://t.me/FixGoBike" alt="QR"></div>
             <h2 style="margin-bottom: 10px;">Ми на зв'язку</h2>
-            <p style="opacity: 0.7; font-size: 14px; margin-bottom: 20px; max-width: 280px;">
-                Стараємось обробляти запити настільки швидко, наскільки це можливо.
-            </p>
-                <a href="https://t.me/FixGoBike" class="btn-tg" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-telegram-plane"></i> Канал у Telegram
-                </a>
+            <p>Стараємось обробляти запити настільки швидко, наскільки це можливо.</p>
+            <a href="https://t.me/FixGoBike" class="btn-tg"><i class="fab fa-telegram-plane"></i> Канал у Telegram</a>
         </div>
     </div>
 
@@ -306,58 +44,24 @@
             </div>
             <div class="price-group">
                 <div class="price-item"><span>Збірка батареї</span> <span>від 13.500 грн</span></div>
-                <div class="price-item"><span>Оренда батареї</span> <span>день 80 грн</span></div>
-                <div class="price-item"><span>Оренда велосипеда</span> <span>день 200 грн</span></div>
+                <div class="price-item"><span>Оренда батареї</span> <span>від 80 грн</span></div>
+                <div class="price-item">
+                    <a href="rent.html" class="rent-link">
+                        <span>Оренда велосипеда <i class="fas fa-chevron-right" style="font-size: 12px;"></i></span> 
+                        <span>від 250 грн</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="bottom-bar">
-        <div class="info-box">
-            <h4>Графік</h4>
-            <p>Пн - Сб: 09:00 - 20:00<br>Неділя: Вихідний</p>
-        </div>
-        <div class="info-box">
-            <h4>Локація</h4>
-            <p>Івано-Франківськ<br>вул. Михайла Мулика 27</p>
-        </div>
-        <div class="info-box">
-            <h4>Контакти</h4>
-            <p>Telegram: @FixGoBike<br>Майстер - Стас</p>
-        </div>
+        <div class="info-box"><h4>Графік</h4><p>Пн - Сб: 09:00 - 20:00<br>Неділя: Вихідний</p></div>
+        <div class="info-box"><h4>Локація</h4><p>Івано-Франківськ<br>вул. Михайла Мулика 27</p></div>
+        <div class="info-box"><h4>Контакти</h4><p>Telegram: @FixGoBike<br>Майстер - Стас</p></div>
     </div>
-
-    <footer style="text-align: center; padding: 40px 0 10px; opacity: 0.4; font-size: 11px; letter-spacing: 1px;">
-        &copy; 2026 FIX & GO BIKE. ВСІ ПРАВА ЗАХИЩЕНІ.
-    </footer>
+    <footer>&copy; 2026 FIX & GO BIKE. ВСІ ПРАВА ЗАХИЩЕНІ.</footer>
 </div>
-
-<script>
-    function updateWorkStatus() {
-        // Отримуємо поточний час саме для Києва
-        const now = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Kyiv"}));
-        
-        const day = now.getDay(); // 0 = Неділя, 1 = Пн...
-        const hour = now.getHours();
-        
-        const statusContainer = document.getElementById('status-container');
-        const statusText = document.getElementById('status-text');
-
-        const isSunday = (day === 0);
-        const isClosedTime = (hour < 9 || hour >= 20);
-
-        if (isSunday || isClosedTime) {
-            statusContainer.classList.add('closed');
-            statusText.textContent = isSunday ? 'Сьогодні вихідний' : 'Зараз зачинено (Працюємо: 09:00 - 20:00)';
-        } else {
-            statusContainer.classList.remove('closed');
-            statusText.textContent = 'Працюємо: 09:00 - 20:00';
-        }
-    }
-
-    updateWorkStatus();
-    setInterval(updateWorkStatus, 60000);
-</script>
-
+<script src="js/script.js"></script>
 </body>
 </html>
