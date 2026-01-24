@@ -30,7 +30,6 @@ body {
     padding: 20px; 
 }
 
-/* Header */
 header { 
     padding: 40px 0; 
     display: flex; 
@@ -57,7 +56,6 @@ header {
     text-transform: uppercase; 
 }
 
-/* Status */
 .work-status {
     display: flex; 
     align-items: center; 
@@ -97,7 +95,6 @@ header {
     100% { box-shadow: 0 0 0 0 rgba(255, 78, 78, 0); } 
 }
 
-/* Cards & Grid */
 .sync-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
@@ -109,11 +106,10 @@ header {
 .left-col { 
     display: flex; 
     flex-direction: column; 
-    gap: 20px; 
-    justify-content: space-between; 
+    gap: 20px !important; 
+    width: 100%;
 }
 
-/* СТИЛІ ДЛЯ ПЕРЕНЕСЕНОЇ КНОПКИ ОРЕНДИ */
 .rent-main-btn {
     text-decoration: none;
     color: inherit;
@@ -144,38 +140,42 @@ header {
     gap: 20px; 
     font-size: clamp(16px, 3vw, 20px); 
     font-weight: 700; 
-    flex-grow: 1; 
+    width: 100%; 
+    min-height: 95px; 
+    box-sizing: border-box;
+    margin-bottom: 5px; 
 }
-
 .service-card i { 
-    font-size: 26px; 
+    font-size: 32px; 
     color: var(--accent); 
-    width: 35px; 
+    width: 45px; 
     text-align: center; 
+    flex-shrink: 0; 
 }
 
-/* ВИПРАВЛЕНА ПАНЕЛЬ З QR (СИМЕТРІЯ ТА РОЗМІР) */
 .cta-card { 
     background: var(--white); 
     color: #000; 
-    padding: 35px 25px; 
+    padding: 40px 25px; 
     border-radius: 35px; 
     text-align: center; 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
-    justify-content: center; /* Рівномірне центрування */
+    justify-content: center; 
     height: 100%; 
+    min-height: 100%; 
     box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .qr-area { 
     background: #f4f4f4; 
     padding: 15px; 
     border-radius: 25px; 
-    margin-bottom: 20px; 
-    width: clamp(140px, 15vw, 175px); 
-    height: clamp(140px, 15vw, 175px); 
+    margin-bottom: 25px; 
+    width: 180px; 
+    height: 180px; 
     border: 2px solid #eee; 
     flex-shrink: 0;
     display: flex;
@@ -189,12 +189,19 @@ header {
     object-fit: contain;
 }
 
+.cta-card h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
 .cta-card p { 
-    opacity: 0.7; 
-    font-size: 14px; 
-    margin-bottom: 20px; 
-    max-width: 280px; 
+    opacity: 0.8; 
+    font-size: 15px; 
+    margin-bottom: 25px; 
+    max-width: 250px; 
     line-height: 1.4; 
+    color: #333;
 }
 
 /* Buttons */
@@ -462,12 +469,63 @@ header {
     margin-bottom: 10px; 
 }
 
+.footer-link {
+    text-decoration: none;
+    color: #ffffff !important;
+    display: inline-block;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 2px;
+    cursor: pointer;
+}
+
+.footer-link:hover {
+    color: #ffffff !important; 
+    border-bottom: 1px solid var(--accent); 
+    transform: translateY(-2px); 
+    opacity: 1;
+}
+
+.footer-link h4 {
+    border-bottom: none;
+}
+
+.footer-link p {
+    margin-bottom: 0;
+}
+
+.footer-link:visited {
+    color: #ffffff !important;
+}
+
+.info-box a {
+    text-decoration: none;
+    color: #ffffff !important;
+    transition: 0.3s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.info-box a:hover {
+    color: #ffffff !important;
+    border-bottom: 1px solid var(--accent);
+}
+
 footer { 
     text-align: center; 
     padding: 40px 0 10px; 
     opacity: 0.4; 
     font-size: 11px; 
     letter-spacing: 1px; 
+}
+
+::selection {
+    background: rgba(128, 128, 128, 0.5); 
+    color: #ffffff;
+}
+
+::-moz-selection {
+    background: rgba(128, 128, 128, 0.5);
+    color: #ffffff;
 }
 
 @media (max-width: 768px) { 

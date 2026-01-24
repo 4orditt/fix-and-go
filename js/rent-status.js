@@ -16,7 +16,7 @@ function updateBikeUI(bikeId, isAvailable) {
 
     if (isAvailable) {
         // Стан: Вільний
-        btn.innerText = "250 грн / день";
+        btn.innerText = "Орендувати";
         btn.style.background = "var(--white)"; // Повертаємо білий фон
         btn.style.color = "#000000";
         btn.style.pointerEvents = "auto";
