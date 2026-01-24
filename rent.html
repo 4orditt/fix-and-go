@@ -25,8 +25,10 @@
     </div>
 
     <div class="bike-grid">
-        <div class="bike-card">
-            <div class="bike-img" onclick="openModal(this)"><img src="images/photo_2025-12-28_16-13-20.jpg" alt="Formula"></div>
+        <div class="bike-card" id="formula">
+            <div class="bike-img" onclick="openModal(this)">
+                <img src="images/photo_2025-12-28_16-13-20.jpg" alt="Formula">
+            </div>
             <div class="bike-content">
                 <h2 style="font-size: 26px;">Formula Zephyr</h2>
                 <p style="opacity: 0.6; font-size: 14px; margin-top: 5px;">Підходить як для відпочинку, так і для роботи.</p>
@@ -35,12 +37,14 @@
                     <li>Батарея: <span>48V 25Ah</span></li>
                     <li>Запас ходу: <span>~80 км - 60 км/год</span></li>
                 </ul>
-                <a href="https://t.me/FixGoBike" class="price-btn">250 грн / день</a>
+                <a href="https://t.me/FixGoBike" class="price-btn status-btn">250 грн / день</a>
             </div>
         </div>
 
-        <div class="bike-card">
-            <div class="bike-img" onclick="openModal(this)"><img src="images/photo_2025-12-08_18-59-13.jpg" alt="Discovery"></div>
+        <div class="bike-card" id="discovery">
+            <div class="bike-img" onclick="openModal(this)">
+                <img src="images/photo_2025-12-08_18-59-13.jpg" alt="Discovery">
+            </div>
             <div class="bike-content">
                 <h2 style="font-size: 26px;">Discovery</h2>
                 <p style="opacity: 0.6; font-size: 14px; margin-top: 5px;">Надійний напарник для повного робочого дня.</p>
@@ -49,7 +53,7 @@
                     <li>Батарея: <span>48V 25Ah</span></li>
                     <li>Запас ходу: <span>~80 км - 60 км/год</span></li>
                 </ul>
-                <a href="https://t.me/FixGoBike" class="price-btn">250 грн / день</a>
+                <a href="https://t.me/FixGoBike" class="price-btn status-btn">250 грн / день</a>
             </div>
         </div>
     </div>
@@ -66,6 +70,10 @@
     <div class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></div>
     <img class="modal-content" id="fullImage">
 </div>
+
 <script src="js/script.js"></script>
+
+<script type="module" src="js/rent-status.js"></script>
+
 </body>
 </html>
