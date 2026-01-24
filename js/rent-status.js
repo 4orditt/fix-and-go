@@ -24,7 +24,7 @@ function updateBikeUI(bikeId, isAvailable) {
         btn.style.boxShadow = "0 10px 20px rgba(0,0,0,0.1)";
     } else {
         // Стан: В оренді
-        btn.innerText = "В оренді 🔒";
+        btn.innerText = "Орендується";
         btn.style.background = "rgba(255, 255, 255, 0.05)"; // Майже прозорий фон
         btn.style.color = "rgba(255, 255, 255, 0.3)";      // Напівпрозорий текст
         btn.style.pointerEvents = "none";                  // Вимикаємо кліки
