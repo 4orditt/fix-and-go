@@ -8,10 +8,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// ==========================================
-// 1. ВЕЛОСИПЕДИ (Логіка кнопок)
-// ==========================================
-
+// --- 1. ВЕЛОСИПЕДИ ---
 function updateBikeUI(bikeId, isAvailable) {
     const card = document.getElementById(bikeId);
     if (!card) return;
@@ -39,7 +36,6 @@ function updateBikeUI(bikeId, isAvailable) {
     }
 }
 
-// Слухаємо статус велосипедів
 onValue(ref(db, 'bikes'), (snapshot) => {
     const data = snapshot.val();
     if (data) {
@@ -49,31 +45,38 @@ onValue(ref(db, 'bikes'), (snapshot) => {
     }
 });
 
-// ==========================================
-// 2. АКУМУЛЯТОРИ (Логіка лічильника)
-// ==========================================
+// --- 2. АКУМУЛЯТОРИ (ВИПРАВЛЕНО) ---
+const countRef = ref(db, 'batteries/count');
 
-// Слухаємо змінну 'count' в розділі 'batteries'
-onValue(ref(db, 'batteries/count'), (snapshot) => {
-    // Якщо значення немає (null), ставимо 0
-    const count = snapshot.val() !== null ? snapshot.val() : 0;
+onValue(countRef, (snapshot) => {
+    // Отримуємо значення. Якщо null, то 0.
+    const count = snapshot.val();
     
-    // Знаходимо елементи
+    console.log("🔥 Отримано з бази кількість АКБ:", count); // ДЛЯ ПЕРЕВІРКИ
+
     const countElement = document.getElementById('battery-count');
     const mainRow = document.getElementById('battery-main-row');
     const emptyRow = document.getElementById('battery-empty');
 
-    // Оновлюємо цифру
-    if (countElement) {
-        countElement.textContent = count;
+    // Перевірка, чи знайшли ми елементи
+    if (!countElement || !mainRow || !emptyRow) {
+        console.error("❌ Помилка: Не знайдені елементи HTML для батарей!");
+        return;
     }
 
-    // Показуємо або ховаємо товар залежно від кількості
+    // Оновлюємо текст
+    countElement.textContent = count;
+
+    // Перемикаємо видимість
     if (count > 0) {
-        if (mainRow) mainRow.style.display = "flex";
-        if (emptyRow) emptyRow.style.display = "none";
+        // Є товар
+        mainRow.style.display = "flex";
+        emptyRow.style.display = "none";
+        console.log("✅ Показую товар");
     } else {
-        if (mainRow) mainRow.style.display = "none";
-        if (emptyRow) emptyRow.style.display = "flex";
+        // Немає товару
+        mainRow.style.display = "none";
+        emptyRow.style.display = "flex";
+        console.log("⛔ Показую 'Немає в наявності'");
     }
 });
