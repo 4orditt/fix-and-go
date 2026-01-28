@@ -21,18 +21,40 @@
 
     <div class="sync-grid">
         <div class="left-col">
-            <a href="rent.html" class="service-card rent-main-btn">
-                <i class="fas fa-motorcycle"></i>
-                <div class="service-info">
-                    <span class="service-title">Оренда велосипеда</span>
-                    <span class="service-price-hint">Для роботи або відпочинку</span>
+            <a href="rent.html" class="service-card action-card">
+                <div class="card-left">
+                    <i class="fas fa-motorcycle"></i>
+                    <div class="service-info">
+                        <span class="service-title">Оренда велосипеда</span>
+                        <span class="service-price-hint">Для роботи або відпочинку</span>
+                    </div>
                 </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
+                <i class="fas fa-chevron-right mini-arrow"></i>
             </a>
 
-            <div class="service-card"><i class="fas fa-plug-circle-bolt"></i> Оренда потужних АКБ</div>
-            <div class="service-card"><i class="fas fa-screwdriver-wrench"></i> Професійний ремонт та ТО</div>
-            <div class="service-card"><i class="fas fa-gears"></i> Запчастини у наявності</div>
+            <div class="service-card action-card" onclick="openInfoModal('modal-battery')">
+                <div class="card-left">
+                    <i class="fas fa-plug-circle-bolt"></i> 
+                    <span>Оренда потужних АКБ</span>
+                </div>
+                <i class="fas fa-chevron-right mini-arrow"></i>
+            </div>
+            
+            <div class="service-card action-card" onclick="openInfoModal('modal-repair')">
+                <div class="card-left">
+                    <i class="fas fa-screwdriver-wrench"></i> 
+                    <span>Професійний ремонт та ТО</span>
+                </div>
+                <i class="fas fa-chevron-right mini-arrow"></i>
+            </div>
+            
+            <div class="service-card action-card" onclick="openInfoModal('modal-parts')">
+                <div class="card-left">
+                    <i class="fas fa-gears"></i> 
+                    <span>Запчастини у наявності</span>
+                </div>
+                <i class="fas fa-chevron-right mini-arrow"></i>
+            </div>
         </div>
 
         <div class="cta-card">
@@ -82,12 +104,60 @@
             </p>
         </div>
     </div>
-<footer>
-    &copy; 2026 FIX & GO BIKE.
-    <span class="separator">|</span> 
-    DESIGNED BY <a href="https://t.me/forditt" target="_blank" class="footer-link">FORDITT</a>
-</footer>
+    
+    <footer>
+        © 2026 FIX & GO BIKE.
+        <span class="separator">|</span> 
+        DESIGNED BY <a href="https://t.me/forditt" target="_blank" class="footer-link">FORDITT</a>
+    </footer>
 </div>
+
+<div id="modal-battery" class="info-modal">
+    <div class="info-modal-content">
+        <div class="close-modal-btn" onclick="closeInfoModal('modal-battery')"><i class="fas fa-times"></i></div>
+        <h3><i class="fas fa-plug-circle-bolt"></i> Оренда АКБ</h3>
+        <p>Потужні батареї для твого електротранспорту. В наявності:</p>
+        <ul class="modal-list">
+            <li><span>48V 25Ah</span> <strong>80 грн/день</strong></li>
+            <li><span>48V 25Ah</span> <strong>80 грн/день</strong></li>
+            <li><span>48V 25Ah</span> <strong>80 грн/день</strong></li>
+        </ul>
+        <a href="https://t.me/KalhozMira" target="_blank" class="modal-action-btn">Замовити</a>
+    </div>
+</div>
+
+<div id="modal-repair" class="info-modal">
+    <div class="info-modal-content">
+        <div class="close-modal-btn" onclick="closeInfoModal('modal-repair')"><i class="fas fa-times"></i></div>
+        <h3><i class="fas fa-screwdriver-wrench"></i> Ремонт та ТО</h3>
+        <p>Професійна діагностика та ремонт будь-якої складності:</p>
+        <ul class="modal-list">
+            <li><span>Діагностика</span> <strong>безкоштовно*</strong></li>
+            <li><span>Заміна камери</span> <strong>від 150 грн</strong></li>
+            <li><span>Ремонт контролера</span> <strong>від 500 грн</strong></li>
+            <li><span>Повне ТО</span> <strong>700 грн</strong></li>
+        </ul>
+        <p class="note">*при умові подальшого ремонту</p>
+        <a href="https://t.me/KalhozMira" target="_blank" class="modal-action-btn">Записатися</a>
+    </div>
+</div>
+
+<div id="modal-parts" class="info-modal">
+    <div class="info-modal-content">
+        <div class="close-modal-btn" onclick="closeInfoModal('modal-parts')"><i class="fas fa-times"></i></div>
+        <h3><i class="fas fa-gears"></i> Запчастини</h3>
+        <p>Великий вибір запчастин у наявності та під замовлення:</p>
+        <ul class="modal-list">
+            <li>Контролери та ручки газу</li>
+            <li>Гальмівні колодки та диски</li>
+            <li>Покришки та камери</li>
+            <li>Зарядні пристрої</li>
+        </ul>
+        <p class="note">*та інші</p>
+        <a href="https://t.me/KalhozMira" target="_blank" class="modal-action-btn">Дізнатись наявність</a>
+    </div>
+</div>
+
 <script src="js/script.js"></script>
 </body>
 </html>

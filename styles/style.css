@@ -7,6 +7,10 @@
     --tg-blue: #24A1DE;
     --status-green: #4ef054;
     --status-red: #ff4e4e;
+    
+    /* Анімації */
+    --ease-elastic: cubic-bezier(0.25, 0.8, 0.25, 1);
+    --anim-delay-base: 0.1s;
 }
 
 * { 
@@ -14,6 +18,7 @@
     padding: 0; 
     box-sizing: border-box; 
     font-family: 'Inter', -apple-system, sans-serif; 
+    -webkit-tap-highlight-color: transparent; /* Прибирає синій квадрат при кліку на мобільному */
 }
 
 body { 
@@ -24,24 +29,38 @@ body {
     overflow-x: hidden; 
 }
 
+/* --- Keyframe Animations --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .container { 
     max-width: 1100px; 
     margin: 0 auto; 
     padding: 20px; 
 }
 
-/* --- Header (Оптимізовано) --- */
+/* --- Header --- */
 header { 
-    padding: 30px 0; /* Було 40px */
+    padding: 30px 0;
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
     flex-wrap: wrap; 
     gap: 20px; 
+    /* Анімація появи */
+    animation: fadeInUp 0.6s var(--ease-elastic) backwards;
 }
 
 .logo { 
-    font-size: clamp(28px, 6vw, 40px); /* Трохи зменшено для мобільних */
+    font-size: clamp(28px, 6vw, 40px);
     font-weight: 900; 
     letter-spacing: -1px; 
     line-height: 0.9; 
@@ -63,15 +82,15 @@ header {
     gap: 10px;
     background: rgba(0, 0, 0, 0.3); 
     backdrop-filter: blur(10px);
-    padding: 8px 18px; /* Було 10px 20px */
+    padding: 8px 18px;
     border-radius: 50px; 
     border: 1px solid rgba(255,255,255,0.1); 
-    font-size: 13px; /* Було 14px */
+    font-size: 13px;
     font-weight: 500;
 }
 
 .dot { 
-    width: 8px; /* Було 10px */
+    width: 8px;
     height: 8px; 
     background: var(--status-green); 
     border-radius: 50%; 
@@ -97,13 +116,15 @@ header {
     100% { box-shadow: 0 0 0 0 rgba(255, 78, 78, 0); } 
 }
 
-/* --- Grid System --- */
+/* --- Layout Grids --- */
 .sync-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
     gap: 30px; 
     margin-bottom: 30px; 
     align-items: stretch; 
+    /* Анімація появи (трохи пізніше) */
+    animation: fadeInUp 0.6s var(--ease-elastic) 0.2s backwards;
 }
 
 .left-col { 
@@ -113,25 +134,7 @@ header {
     width: 100%;
 }
 
-.rent-main-btn {
-    text-decoration: none;
-    color: inherit;
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: var(--glass-heavy) !important;
-    border: 1px solid var(--accent) !important;
-}
-
-.rent-main-btn:hover {
-    transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.25) !important;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-.service-info { display: flex; flex-direction: column; flex-grow: 1; }
-.service-price-hint { font-size: 13px; opacity: 0.7; font-weight: 400; margin-top: 2px; }
-.arrow-icon { font-size: 14px !important; opacity: 0.4; transition: 0.3s; margin-left: auto; }
-.rent-main-btn:hover .arrow-icon { opacity: 1; transform: translateX(5px); }
-
+/* --- Service Cards (Базовий стиль) --- */
 .service-card { 
     background: var(--glass); 
     backdrop-filter: blur(15px); 
@@ -148,6 +151,7 @@ header {
     box-sizing: border-box;
     margin-bottom: 5px; 
 }
+
 .service-card i { 
     font-size: 32px; 
     color: var(--accent); 
@@ -156,6 +160,108 @@ header {
     flex-shrink: 0; 
 }
 
+/* --- УНІВЕРСАЛЬНА КНОПКА (Action Card) --- */
+.action-card {
+    text-decoration: none;
+    color: var(--white);
+    cursor: pointer;
+    justify-content: space-between;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s var(--ease-elastic), background 0.2s, border-color 0.2s;
+}
+
+.card-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: left;
+}
+
+.service-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.service-price-hint { 
+    font-size: 13px; 
+    opacity: 0.7; 
+    font-weight: 400; 
+    margin-top: 2px; 
+}
+
+.mini-arrow {
+    font-size: 14px !important;
+    width: auto !important;
+    opacity: 0.3;
+    transition: 0.3s;
+    margin-left: auto;
+}
+
+/* --- INTERACTION LOGIC (Фікс залипання) --- */
+
+/* 1. Ховер працює ТІЛЬКИ на ПК (там де є мишка) */
+@media (hover: hover) {
+    .action-card:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateX(5px);
+        border-color: var(--accent);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .action-card:hover .mini-arrow {
+        opacity: 1;
+        transform: translateX(3px);
+        color: var(--accent);
+    }
+
+    .btn-tg:hover {
+        filter: brightness(1.1);
+        transform: scale(1.02);
+    }
+
+    .back-btn:hover { 
+        background: var(--glass-heavy); 
+        transform: translateX(-5px); 
+        border-color: var(--accent); 
+    }
+
+    .price-btn:hover { 
+        background: var(--accent); 
+        transform: translateY(-2px); 
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .bike-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(255,255,255,0.2);
+    }
+    
+    .bike-img:hover img { 
+        transform: scale(1.08); 
+    }
+}
+
+/* 2. Натискання (Active) працює всюди - ефект "кліку" */
+.action-card:active {
+    transform: scale(0.98);
+    background: rgba(255,255,255,0.15);
+}
+
+.btn-tg:active {
+    transform: scale(0.98);
+    filter: brightness(0.9);
+}
+
+.back-btn:active {
+    transform: scale(0.95);
+    background: var(--glass-heavy);
+}
+
+.price-btn:active {
+    transform: scale(0.98);
+}
+
+/* --- CTA Card --- */
 .cta-card { 
     background: var(--white); 
     color: #000; 
@@ -221,17 +327,13 @@ header {
     align-items: center; 
     justify-content: center; 
     gap: 10px; 
-    transition: 0.3s;
+    transition: transform 0.2s, filter 0.2s;
 }
 
-.btn-tg:hover {
-    filter: brightness(1.1);
-    transform: scale(1.02);
-}
-
+/* Кнопка "На головну" */
 .back-btn { 
     background: var(--glass); 
-    padding: 10px 20px; /* Трохи менше */
+    padding: 10px 20px; 
     border-radius: 50px; 
     text-decoration: none; 
     color: white; 
@@ -244,18 +346,14 @@ header {
     font-weight: 600; 
 }
 
-.back-btn:hover { 
-    background: var(--glass-heavy); 
-    transform: translateX(-5px); 
-    border-color: var(--accent); 
-}
-
-/* Prices */
+/* --- Prices --- */
 .price-section { 
     background: rgba(0, 0, 0, 0.2); 
     padding: 35px; 
     border-radius: 40px; 
     margin-bottom: 30px; 
+    /* Анімація появи */
+    animation: fadeInUp 0.6s var(--ease-elastic) 0.3s backwards;
 }
 
 .price-title { 
@@ -286,26 +384,15 @@ header {
     font-weight: 800; 
 }
 
-.rent-link { 
-    text-decoration: none; 
-    color: inherit; 
-    display: flex; 
-    justify-content: space-between; 
-    width: 100%; 
-    transition: 0.3s; 
-}
-
-.rent-link:hover { 
-    color: var(--accent); 
-}
-
+/* --- Bike Rent Page Specifics --- */
 .title-block { 
     text-align: center; 
-    margin-bottom: 30px; /* Було 40px */
+    margin-bottom: 30px; 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
     gap: 10px;
+    animation: fadeInUp 0.6s var(--ease-elastic) 0.1s backwards;
 }
 
 .title-block h1 {
@@ -318,41 +405,35 @@ header {
     align-items: center; 
     gap: 8px; 
     opacity: 0.8; 
-    font-size: 13px; /* Трохи менше */
+    font-size: 13px; 
     background: rgba(0,0,0,0.2); 
     width: fit-content; 
     padding: 6px 14px; 
     border-radius: 10px; 
 }
 
-/* --- ВИПРАВЛЕНІ СТИЛІ ДЛЯ КАРТОК (Bike Grid) --- */
 .bike-grid { 
     display: grid; 
-    /* Змінив з 320px на 300px, щоб влазило 3 в ряд на середніх екранах */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-    gap: 25px; /* Було 30px */
-    margin-bottom: 50px; 
+    gap: 25px; 
+    margin-bottom: 50px;
+    animation: fadeInUp 0.6s var(--ease-elastic) 0.2s backwards; 
 }
 
 .bike-card { 
     background: var(--glass); 
     backdrop-filter: blur(15px); 
-    border-radius: 25px; /* Було 35px - забагато */
+    border-radius: 25px; 
     border: 1px solid rgba(255,255,255,0.1); 
     overflow: hidden; 
     display: flex; 
     flex-direction: column; 
-    transition: transform 0.3s ease;
-}
-
-.bike-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(255,255,255,0.2);
+    transition: transform 0.3s ease, border-color 0.3s;
 }
 
 .bike-img { 
     width: 100%; 
-    height: 220px; /* БУЛО 280px. Зменшив, щоб не розтягувати */
+    height: 220px; 
     background: rgba(0,0,0,0.2); 
     cursor: zoom-in; 
     overflow: hidden; 
@@ -369,12 +450,8 @@ header {
     transition: 0.5s ease; 
 }
 
-.bike-img:hover img { 
-    transform: scale(1.08); 
-}
-
 .bike-content { 
-    padding: 20px; /* БУЛО 25px. Зменшив відступи */
+    padding: 20px; 
     flex-grow: 1; 
     display: flex; 
     flex-direction: column; 
@@ -383,21 +460,21 @@ header {
 .bike-content h2 {
     margin-bottom: 5px;
     line-height: 1.2;
-    font-size: 24px !important; /* Трохи зменшив шрифт заголовка */
+    font-size: 24px !important; 
 }
 
 .specs-list { 
     list-style: none; 
-    margin: 15px 0; /* Було 20px */
+    margin: 15px 0; 
     flex-grow: 1; 
 }
 
 .specs-list li { 
-    padding: 8px 0; /* Було 10px */
+    padding: 8px 0; 
     border-bottom: 1px solid rgba(255,255,255,0.05); 
     display: flex; 
     justify-content: space-between; 
-    font-size: 14px; /* Було 15px */
+    font-size: 14px; 
 }
 
 .specs-list span { 
@@ -408,88 +485,35 @@ header {
 .price-btn { 
     background: var(--white); 
     color: #000000; 
-    padding: 14px; /* БУЛО 18px. Кнопка стала компактніша */
-    border-radius: 15px; /* Було 20px */
+    padding: 14px; 
+    border-radius: 15px; 
     text-align: center; 
     text-decoration: none; 
     font-weight: 800; 
     font-size: 16px;
-    transition: 0.3s; 
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s; 
     box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
-    margin-top: auto; /* Притискає кнопку до низу */
+    margin-top: auto; 
 }
 
-.price-btn:hover { 
-    background: var(--accent); 
-    transform: translateY(-2px); 
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-/* Modal */
-.modal { 
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: rgba(0,0,0,0.9); 
-    backdrop-filter: blur(10px); 
-    align-items: center; 
-    justify-content: center; 
-}
-
-.modal.active { 
-    display: flex; 
-}
-
-.modal-content { 
-    max-width: 90%; 
-    max-height: 85%; 
-    border-radius: 15px; 
-    border: 2px solid rgba(255,255,255,0.1); 
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
-}
-
-.close-modal { 
-    position: absolute; 
-    top: 20px; 
-    right: 20px; 
-    color: white; 
-    font-size: 30px; 
-    cursor: pointer; 
-    width: 44px; /* Було 50px */
-    height: 44px; 
-    background: rgba(255,255,255,0.1); 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    transition: 0.4s; 
-}
-
-.close-modal:hover { 
-    background: #ff4e4e; 
-    transform: rotate(90deg); 
-}
-
-/* Footer */
+/* --- Footer --- */
 .bottom-bar { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-    gap: 20px; /* Було 25px */
-    padding: 25px; /* Було 30px */
+    gap: 20px; 
+    padding: 25px; 
     background: var(--glass); 
-    border-radius: 25px; /* Було 35px */
+    border-radius: 25px; 
     text-align: center; 
     border: 1px solid rgba(255,255,255,0.05); 
+    /* Анімація появи (остання) */
+    animation: fadeInUp 0.6s var(--ease-elastic) 0.4s backwards;
 }
 
 .info-box h4 { 
     color: var(--accent); 
     text-transform: uppercase; 
-    font-size: 11px; /* Було 12px */
+    font-size: 11px; 
     letter-spacing: 1.5px; 
     margin-bottom: 8px; 
 }
@@ -509,23 +533,18 @@ header {
     cursor: pointer;
 }
 
-.footer-link:hover {
-    color: var(--accent) !important; 
-    border-bottom: 1px solid var(--accent); 
-    transform: translateY(-2px); 
-    opacity: 1;
-}
-
-.footer-link h4 {
-    border-bottom: none;
-}
-
-.footer-link p {
-    margin-bottom: 0;
-}
-
-.footer-link:visited {
-    color: #ffffff !important;
+/* Hover тільки для ПК */
+@media (hover: hover) {
+    .footer-link:hover {
+        color: var(--accent) !important; 
+        border-bottom: 1px solid var(--accent); 
+        transform: translateY(-2px); 
+        opacity: 1;
+    }
+    .info-box a:hover {
+        color: #ffffff !important;
+        border-bottom: 1px solid var(--accent);
+    }
 }
 
 .info-box a {
@@ -535,19 +554,209 @@ header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.info-box a:hover {
-    color: #ffffff !important;
-    border-bottom: 1px solid var(--accent);
-}
-
 footer { 
     text-align: center; 
     padding: 30px 0 10px; 
     opacity: 0.5; 
     font-size: 11px; 
-    letter-spacing: 1px; 
+    letter-spacing: 1px;
+    animation: fadeInUp 0.6s var(--ease-elastic) 0.5s backwards; 
 }
 
+/* --- MODALS (Image & Info) --- */
+.modal { 
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0,0,0,0.9); 
+    backdrop-filter: blur(10px); 
+    align-items: center; 
+    justify-content: center; 
+    /* Анімація появи модалки */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.active { 
+    display: flex; 
+    opacity: 1;
+}
+
+.modal-content { 
+    max-width: 90%; 
+    max-height: 85%; 
+    border-radius: 15px; 
+    border: 2px solid rgba(255,255,255,0.1); 
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s var(--ease-elastic);
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+}
+
+/* Info Modal Styles */
+.info-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.info-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.info-modal-content {
+    background: linear-gradient(135deg, #3d2361 0%, #2a1b4a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    width: 100%;
+    max-width: 380px;
+    border-radius: 25px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    /* Анімація спливання знизу */
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.4s var(--ease-elastic);
+    text-align: center;
+}
+
+.info-modal.active .info-modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 24px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-modal-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.close-modal { 
+    position: absolute; 
+    top: 20px; 
+    right: 20px; 
+    color: white; 
+    font-size: 30px; 
+    cursor: pointer; 
+    width: 44px; 
+    height: 44px; 
+    background: rgba(255,255,255,0.1); 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    transition: 0.4s; 
+}
+
+.close-modal:hover { 
+    background: #ff4e4e; 
+    transform: rotate(90deg); 
+}
+
+.info-modal-content h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.info-modal-content p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.modal-list {
+    list-style: none;
+    margin-bottom: 25px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: left;
+}
+
+.modal-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+}
+
+.modal-list li:last-child {
+    border-bottom: none;
+}
+
+.modal-list strong {
+    color: var(--accent);
+}
+
+.note {
+    font-size: 11px !important;
+    opacity: 0.5 !important;
+    margin-top: -10px;
+}
+
+.modal-action-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: var(--white);
+    color: black;
+    text-decoration: none;
+    font-weight: 800;
+    border-radius: 15px;
+    transition: transform 0.2s;
+    font-size: 16px;
+}
+
+.modal-action-btn:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.modal-action-btn:active {
+    transform: scale(0.98);
+}
+
+/* --- Selection --- */
 ::selection {
     background: rgba(128, 128, 128, 0.5); 
     color: #ffffff;
@@ -558,8 +767,12 @@ footer {
     color: #ffffff;
 }
 
-/* --- Mobile Fixes --- */
+/* --- Mobile Media Queries --- */
 @media (max-width: 768px) { 
+    .back-btn {
+        display: none;
+    }
+    
     .container {
         padding: 15px;
     }
@@ -600,20 +813,89 @@ footer {
         padding: 6px 14px;
     }
 
-    .back-btn {
-        display: none;
-    }
+    /* Кнопка "На головну" залишається видимою завдяки моїм змінам */
 
     .cta-card{
         display: none;
     }
 
     .bike-grid {
-        grid-template-columns: 1fr; /* Одна колонка на мобільному */
+        grid-template-columns: 1fr; 
         gap: 20px;
     }
     
     .bike-img {
-        height: 200px; /* Ще менше для мобільного */
+        height: 200px; 
     }
+}
+
+/* --- Анімації для модальних вікон --- */
+
+/* Ключові кадри: Поява (Збільшення + Прозорість) */
+@keyframes modalZoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Ключові кадри: Зникнення (Зменшення + Прозорість) */
+@keyframes modalFadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* === ВІДКРИТТЯ (ACTIVE) === */
+
+/* Анімація напівпрозорого фону */
+.modal.active, .info-modal.active {
+    display: flex;
+    animation: modalFadeInBG 0.3s forwards;
+}
+
+/* Анімація появи контенту ТА ХРЕСТИКА */
+.modal.active .modal-content, 
+.info-modal.active .info-modal-content,
+.modal.active .close-modal,          /* <-- Додано хрестик фото */
+.info-modal.active .close-modal-btn  /* <-- Додано хрестик інфо */
+{
+    animation: modalZoomIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+/* === ЗАКРИТТЯ === */
+
+/* Фон зникає */
+.modal.closing, .info-modal.closing {
+    animation: modalFadeOutBG 0.3s forwards;
+    pointer-events: none; /* Блокуємо кліки */
+}
+
+/* Контент ТА ХРЕСТИК зникають плавно */
+.modal.closing .modal-content, 
+.info-modal.closing .info-modal-content,
+.modal.closing .close-modal,         /* <-- Додано хрестик фото */
+.info-modal.closing .close-modal-btn /* <-- Додано хрестик інфо */
+{
+    animation: modalFadeOut 0.3s forwards;
+}
+
+/* Анімації для темного фону окремо */
+@keyframes modalFadeInBG {
+    from { background: rgba(0, 0, 0, 0); backdrop-filter: blur(0px); }
+    to { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); }
+}
+
+@keyframes modalFadeOutBG {
+    from { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); }
+    to { background: rgba(0, 0, 0, 0); backdrop-filter: blur(0px); }
 }
