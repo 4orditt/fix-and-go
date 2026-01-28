@@ -1,3 +1,5 @@
+/* js/script.js */
+
 // --- 1. ГОДИННИК РОБОТИ ---
 function updateWorkStatus() {
     const now = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Kyiv"}));
@@ -32,15 +34,12 @@ function openAnyModal(modalId) {
         modal.classList.add('active');
 
         // Фікс стрибка контенту:
-        // 1. Рахуємо ширину скрола
         const scrollbarWidth = getScrollbarWidth();
         
-        // 2. Якщо скрол є (ширина > 0), додаємо відступ справа
         if (scrollbarWidth > 0) {
             document.body.style.paddingRight = `${scrollbarWidth}px`;
         }
         
-        // 3. Блокуємо скрол
         document.body.style.overflow = 'hidden'; 
     }
 }
@@ -87,6 +86,14 @@ function closeInfoModal(modalId) {
 
 // --- 6. ЗАПУСК ПРИ ЗАВАНТАЖЕННІ ---
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // Вимикаємо запам'ятовування позиції скролу браузером
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    // Кидаємо користувача на початок сторінки
+    window.scrollTo(0, 0);
+
     updateWorkStatus();
     setInterval(updateWorkStatus, 60000);
 
