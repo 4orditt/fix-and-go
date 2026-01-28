@@ -30,8 +30,9 @@ body {
     padding: 20px; 
 }
 
+/* --- Header (Оптимізовано) --- */
 header { 
-    padding: 40px 0; 
+    padding: 30px 0; /* Було 40px */
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
@@ -40,7 +41,7 @@ header {
 }
 
 .logo { 
-    font-size: clamp(32px, 7vw, 44px); 
+    font-size: clamp(28px, 6vw, 40px); /* Трохи зменшено для мобільних */
     font-weight: 900; 
     letter-spacing: -1px; 
     line-height: 0.9; 
@@ -62,39 +63,41 @@ header {
     gap: 10px;
     background: rgba(0, 0, 0, 0.3); 
     backdrop-filter: blur(10px);
-    padding: 10px 20px; 
+    padding: 8px 18px; /* Було 10px 20px */
     border-radius: 50px; 
     border: 1px solid rgba(255,255,255,0.1); 
-    font-size: 14px;
+    font-size: 13px; /* Було 14px */
+    font-weight: 500;
 }
 
 .dot { 
-    width: 10px; 
-    height: 10px; 
+    width: 8px; /* Було 10px */
+    height: 8px; 
     background: var(--status-green); 
     border-radius: 50%; 
-    box-shadow: 0 0 15px var(--status-green); 
+    box-shadow: 0 0 10px var(--status-green); 
     animation: pulse-green 2s infinite; 
 }
 
 .work-status.closed .dot { 
     background: var(--status-red); 
-    box-shadow: 0 0 15px var(--status-red); 
+    box-shadow: 0 0 10px var(--status-red); 
     animation: pulse-red 2s infinite; 
 }
 
 @keyframes pulse-green { 
     0% { box-shadow: 0 0 0 0 rgba(78, 240, 84, 0.7); } 
-    70% { box-shadow: 0 0 0 15px rgba(78, 240, 84, 0); } 
+    70% { box-shadow: 0 0 0 10px rgba(78, 240, 84, 0); } 
     100% { box-shadow: 0 0 0 0 rgba(78, 240, 84, 0); } 
 }
 
 @keyframes pulse-red { 
     0% { box-shadow: 0 0 0 0 rgba(255, 78, 78, 0.7); } 
-    70% { box-shadow: 0 0 0 15px rgba(255, 78, 78, 0); } 
+    70% { box-shadow: 0 0 0 10px rgba(255, 78, 78, 0); } 
     100% { box-shadow: 0 0 0 0 rgba(255, 78, 78, 0); } 
 }
 
+/* --- Grid System --- */
 .sync-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
@@ -228,16 +231,16 @@ header {
 
 .back-btn { 
     background: var(--glass); 
-    padding: 12px 24px; 
+    padding: 10px 20px; /* Трохи менше */
     border-radius: 50px; 
     text-decoration: none; 
     color: white; 
-    font-size: 15px; 
+    font-size: 14px; 
     border: 1px solid rgba(255,255,255,0.1); 
     transition: 0.3s; 
     display: flex; 
     align-items: center; 
-    gap: 10px; 
+    gap: 8px; 
     font-weight: 600; 
 }
 
@@ -298,15 +301,16 @@ header {
 
 .title-block { 
     text-align: center; 
-    margin-bottom: 40px; 
+    margin-bottom: 30px; /* Було 40px */
     display: flex; 
     flex-direction: column; 
     align-items: center; 
-    gap: 15px;
+    gap: 10px;
 }
 
 .title-block h1 {
     margin: 0;
+    font-size: 32px;
 }
 
 .photo-hint { 
@@ -314,37 +318,48 @@ header {
     align-items: center; 
     gap: 8px; 
     opacity: 0.8; 
-    font-size: 15px; 
+    font-size: 13px; /* Трохи менше */
     background: rgba(0,0,0,0.2); 
     width: fit-content; 
-    padding: 8px 18px; 
-    border-radius: 12px; 
+    padding: 6px 14px; 
+    border-radius: 10px; 
 }
 
+/* --- ВИПРАВЛЕНІ СТИЛІ ДЛЯ КАРТОК (Bike Grid) --- */
 .bike-grid { 
     display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-    gap: 30px; 
+    /* Змінив з 320px на 300px, щоб влазило 3 в ряд на середніх екранах */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 25px; /* Було 30px */
     margin-bottom: 50px; 
 }
 
 .bike-card { 
     background: var(--glass); 
     backdrop-filter: blur(15px); 
-    border-radius: 35px; 
+    border-radius: 25px; /* Було 35px - забагато */
     border: 1px solid rgba(255,255,255,0.1); 
     overflow: hidden; 
     display: flex; 
     flex-direction: column; 
+    transition: transform 0.3s ease;
+}
+
+.bike-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255,255,255,0.2);
 }
 
 .bike-img { 
     width: 100%; 
-    height: 280px; 
+    height: 220px; /* БУЛО 280px. Зменшив, щоб не розтягувати */
     background: rgba(0,0,0,0.2); 
     cursor: zoom-in; 
     overflow: hidden; 
     position: relative; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .bike-img img { 
@@ -355,28 +370,34 @@ header {
 }
 
 .bike-img:hover img { 
-    transform: scale(1.1); 
+    transform: scale(1.08); 
 }
 
 .bike-content { 
-    padding: 25px; 
+    padding: 20px; /* БУЛО 25px. Зменшив відступи */
     flex-grow: 1; 
     display: flex; 
     flex-direction: column; 
 }
 
+.bike-content h2 {
+    margin-bottom: 5px;
+    line-height: 1.2;
+    font-size: 24px !important; /* Трохи зменшив шрифт заголовка */
+}
+
 .specs-list { 
     list-style: none; 
-    margin: 20px 0; 
+    margin: 15px 0; /* Було 20px */
     flex-grow: 1; 
 }
 
 .specs-list li { 
-    padding: 10px 0; 
+    padding: 8px 0; /* Було 10px */
     border-bottom: 1px solid rgba(255,255,255,0.05); 
     display: flex; 
     justify-content: space-between; 
-    font-size: 15px; 
+    font-size: 14px; /* Було 15px */
 }
 
 .specs-list span { 
@@ -387,18 +408,21 @@ header {
 .price-btn { 
     background: var(--white); 
     color: #000000; 
-    padding: 18px; 
-    border-radius: 20px; 
+    padding: 14px; /* БУЛО 18px. Кнопка стала компактніша */
+    border-radius: 15px; /* Було 20px */
     text-align: center; 
     text-decoration: none; 
     font-weight: 800; 
+    font-size: 16px;
     transition: 0.3s; 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+    margin-top: auto; /* Притискає кнопку до низу */
 }
 
 .price-btn:hover { 
     background: var(--accent); 
     transform: translateY(-2px); 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
 /* Modal */
@@ -425,6 +449,7 @@ header {
     max-height: 85%; 
     border-radius: 15px; 
     border: 2px solid rgba(255,255,255,0.1); 
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
 
 .close-modal { 
@@ -434,8 +459,8 @@ header {
     color: white; 
     font-size: 30px; 
     cursor: pointer; 
-    width: 50px; 
-    height: 50px; 
+    width: 44px; /* Було 50px */
+    height: 44px; 
     background: rgba(255,255,255,0.1); 
     border-radius: 50%; 
     display: flex; 
@@ -446,17 +471,17 @@ header {
 
 .close-modal:hover { 
     background: #ff4e4e; 
-    transform: rotate(180deg); 
+    transform: rotate(90deg); 
 }
 
 /* Footer */
 .bottom-bar { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-    gap: 25px; 
-    padding: 30px; 
+    gap: 20px; /* Було 25px */
+    padding: 25px; /* Було 30px */
     background: var(--glass); 
-    border-radius: 35px; 
+    border-radius: 25px; /* Було 35px */
     text-align: center; 
     border: 1px solid rgba(255,255,255,0.05); 
 }
@@ -464,9 +489,14 @@ header {
 .info-box h4 { 
     color: var(--accent); 
     text-transform: uppercase; 
-    font-size: 12px; 
+    font-size: 11px; /* Було 12px */
     letter-spacing: 1.5px; 
-    margin-bottom: 10px; 
+    margin-bottom: 8px; 
+}
+
+.info-box p, .info-box a {
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .footer-link {
@@ -475,12 +505,12 @@ header {
     display: inline-block;
     transition: all 0.3s ease;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    padding-bottom: 2px;
+    padding-bottom: 1px;
     cursor: pointer;
 }
 
 .footer-link:hover {
-    color: #ffffff !important; 
+    color: var(--accent) !important; 
     border-bottom: 1px solid var(--accent); 
     transform: translateY(-2px); 
     opacity: 1;
@@ -512,8 +542,8 @@ header {
 
 footer { 
     text-align: center; 
-    padding: 40px 0 10px; 
-    opacity: 0.4; 
+    padding: 30px 0 10px; 
+    opacity: 0.5; 
     font-size: 11px; 
     letter-spacing: 1px; 
 }
@@ -528,7 +558,12 @@ footer {
     color: #ffffff;
 }
 
+/* --- Mobile Fixes --- */
 @media (max-width: 768px) { 
+    .container {
+        padding: 15px;
+    }
+
     .sync-grid { 
         grid-template-columns: 1fr; 
     } 
@@ -539,11 +574,17 @@ footer {
     } 
     
     header { 
-        justify-content: center; 
-        text-align: center; 
         padding: 20px 0; 
+        justify-content: center;
+        gap: 15px;
     }
     
+    .logo {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
     .title-block {
         margin-bottom: 25px; 
         gap: 10px; 
@@ -561,5 +602,18 @@ footer {
 
     .back-btn {
         display: none;
+    }
+
+    .cta-card{
+        display: none;
+    }
+
+    .bike-grid {
+        grid-template-columns: 1fr; /* Одна колонка на мобільному */
+        gap: 20px;
+    }
+    
+    .bike-img {
+        height: 200px; /* Ще менше для мобільного */
     }
 }
